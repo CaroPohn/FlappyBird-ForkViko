@@ -12,13 +12,16 @@ namespace flappybird
 			Rectangle middleSpace = {};
 			Rectangle lowPart = {};
 
+
+
 			Color color = { RED };
 
 			float velocity = { 160 };
 
 			bool isOnScreen = false;
 
-			const float MAX_OBSTACLES = 10.0f;
+			const float MAX_OBSTACLES = 1.0f;
+			//no se usa
 			const float MAX_PIPES_IN_SCREEN = 1.0f;
 		};
 	

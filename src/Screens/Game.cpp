@@ -5,13 +5,11 @@
 #include "Objects/Bird.h"
 #include "Objects/Obstacles.h"
 
-#include <iostream>
-
 namespace flappybird
 {
 	namespace game
 	{
-		const int MAX_OBSTACLES = 10;
+		const int MAX_OBSTACLES = 1;
 
 		Bird player;
 		Obstacle obstacle[MAX_OBSTACLES];
@@ -53,7 +51,6 @@ namespace flappybird
 
 		void DrawGame()
 		{
-			std::cout << "hola";
 			DrawParallax();
 			BirdDraw(player);
 			ObstacleDraw(obstacle);
