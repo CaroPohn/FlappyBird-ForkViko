@@ -5,6 +5,8 @@
 #include "Objects/Bird.h"
 #include "Objects/Obstacles.h"
 
+#include <iostream>
+
 namespace flappybird
 {
 	namespace game
@@ -51,6 +53,7 @@ namespace flappybird
 
 		void DrawGame()
 		{
+			std::cout << "hola";
 			DrawParallax();
 			BirdDraw(player);
 			ObstacleDraw(obstacle);

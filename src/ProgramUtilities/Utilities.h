@@ -1,20 +1,20 @@
 #pragma once
 
-namespace flappybird
-{
 #include "raylib.h"
 #include "raymath.h"
 
-struct Sprite
+namespace flappybird
 {
-	Texture2D texture = {};
-	Vector2 position = {};
-	float scale = {};
-	float velocity = {};
-	Color color = {WHITE};
-};
+	struct Sprite
+	{
+		Texture2D texture = {};
+		Vector2 position = {};
+		float scale = {};
+		float velocity = {};
+		Color color = { WHITE };
+	};
 
-void DrawSprite(Sprite sprite);
+	void DrawSprite(Sprite sprite);
 
-bool MouseColision(Sprite rec);
+	bool MouseColision(Sprite rec);
 }

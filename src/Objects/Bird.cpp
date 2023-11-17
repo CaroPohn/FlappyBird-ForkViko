@@ -4,7 +4,6 @@ namespace flappybird
 {
 	namespace game
 	{
-
 		float animationTimer = 0;
 
 		void BirdUpdate(Bird& player)
