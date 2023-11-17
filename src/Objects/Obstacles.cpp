@@ -68,7 +68,7 @@ namespace flappybird
 				if (!obstacle[i].isOnScreen && obstacle[i].MAX_PIPES_IN_SCREEN > obstacleCounter)
 				{
 
-					obstacle[i].middleSpace = { static_cast<float>(GetScreenWidth()),  static_cast<float>(GetRandomValue(200,500)), 90,  150.0f};
+					obstacle[i].middleSpace = { static_cast<float>(GetScreenWidth()),  static_cast<float>(GetRandomValue(200,500)), 90, 150.0f};
 					
 					obstacle[i].topPart = { static_cast<float>(GetScreenWidth()) , 0, 90, obstacle[i].middleSpace.y};
 
