@@ -32,7 +32,7 @@ namespace flappybird
 
 		void RulesDrawing()
 		{
-
+			DrawSprite(BackMenuRulesButton);
 		}
 		
 	}
