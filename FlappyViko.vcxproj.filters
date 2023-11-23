@@ -42,6 +42,9 @@
     <ClCompile Include="src\Screens\LoseScreen.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screens\Rules.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ScreenManagements\ScreenManager.h">
@@ -69,6 +72,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\Screens\LoseScreen.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screens\Rules.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
