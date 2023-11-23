@@ -14,8 +14,6 @@ namespace flappybird
 	{
 		const int MAX_OBSTACLES = 2;
 
-		//int pointsCounter;
-
 		Bird player;
 		Bird playerTwo;
 		Obstacle obstacleArray[MAX_OBSTACLES];
