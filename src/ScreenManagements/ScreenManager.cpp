@@ -58,6 +58,9 @@ namespace flappybird
 		case Screen::Credits:
 			credits::CreditsUpdate(currentScreen);
 			break;
+		case Screen::LoseScreen:
+			
+			break;
 		case Screen::Exit:
 			Close();
 			break;
@@ -81,6 +84,9 @@ namespace flappybird
 			break;
 		case Screen::Credits:
 			credits::CreditsDrawing();
+			break;
+		case Screen::LoseScreen:
+
 			break;
 		default:
 			break;

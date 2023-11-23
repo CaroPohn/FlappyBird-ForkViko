@@ -6,6 +6,8 @@ namespace flappybird
     {
         Menu,
         Game,
+        LoseScreen,
+        Rules,
         Credits,
         Exit
     };
