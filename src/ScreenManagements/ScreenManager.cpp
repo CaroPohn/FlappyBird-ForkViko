@@ -6,6 +6,7 @@
 #include "Screens/Game.h"
 #include "Screens/Menu.h"
 #include "Screens/Credits.h"
+#include "Screens/LoseScreen.h"
 
 
 namespace flappybird
@@ -61,7 +62,7 @@ namespace flappybird
 			credits::CreditsUpdate(currentScreen);
 			break;
 		case Screen::LoseScreen:
-			
+			loseScreen::LoseScreenUpdate(currentScreen);
 			break;
 		case Screen::Exit:
 			Close();
@@ -88,7 +89,7 @@ namespace flappybird
 			credits::CreditsDrawing();
 			break;
 		case Screen::LoseScreen:
-
+			loseScreen::LoseScreenDrawing(pointsCounter);
 			break;
 		default:
 			break;

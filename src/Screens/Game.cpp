@@ -4,6 +4,7 @@
 
 #include "Objects/Bird.h"
 #include "Objects/Obstacles.h"
+#include "LoseScreen.h"
 #include <iostream>
 #include <string>
 
@@ -167,6 +168,7 @@ namespace flappybird
 			if (toCheck.hitBox.y + toCheck.hitBox.height > GetScreenHeight() - toCheck.hitBox.height)
 			{
 				currentScene = Screen::LoseScreen;
+				loseScreen::InitLoseScreen();
 				return;
 			}
 
@@ -177,6 +179,7 @@ namespace flappybird
 					if (CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].lowPart) || CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].topPart))
 					{
 						currentScene = Screen::LoseScreen;
+						loseScreen::InitLoseScreen();
 						return;
 					}
 				}
