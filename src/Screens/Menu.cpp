@@ -22,19 +22,19 @@ namespace flappybird
 			title.scale = 0.7f;
 			title.texture = LoadTexture("res/menu/Title.png");
 
-			onePlayer.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 300};
+			onePlayer.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 400};
 			onePlayer.scale = 0.5f;
 			onePlayer.texture = LoadTexture("res/menu/OnePlayer.png");
 
-			twoPlayers.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 400 };
+			twoPlayers.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 460 };
 			twoPlayers.scale = 0.5f;
 			twoPlayers.texture = LoadTexture("res/menu/TwoPlayers.png");
 
-			credits.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 500};
+			credits.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 520};
 			credits.scale = 0.5f;
 			credits.texture = LoadTexture("res/menu/CreditsButton.png");
 
-			exit.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 640 };
+			exit.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 580 };
 			exit.scale = 0.5f;
 			exit.texture = LoadTexture("res/menu/ExitButton.png");
 
