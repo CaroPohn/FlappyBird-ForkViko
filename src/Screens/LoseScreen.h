@@ -8,8 +8,8 @@ namespace flappybird
 {
 	namespace loseScreen
 	{
-		/*void InitLoseScreen();
+		void InitLoseScreen();
 		void LoseScreenUpdate(Screen& currentScene);
-		void LoseScreenDrawing();*/
+		void LoseScreenDrawing(int pointsCounter);
 	}
 }
