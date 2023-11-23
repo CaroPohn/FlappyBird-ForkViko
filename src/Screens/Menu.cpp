@@ -4,6 +4,7 @@
 
 #include "Game.h"
 #include "Credits.h"
+#include "Screens/Rules.h"
 
 namespace flappybird
 {
@@ -34,7 +35,11 @@ namespace flappybird
 			credits.scale = 0.5f;
 			credits.texture = LoadTexture("res/menu/CreditsButton.png");
 
-			exit.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 580 };
+			rules.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 580 };
+			rules.scale = 0.5f;
+			rules.texture = LoadTexture("res/menu/Rules.png");
+
+			exit.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 640 };
 			exit.scale = 0.5f;
 			exit.texture = LoadTexture("res/menu/ExitButton.png");
 
@@ -100,6 +105,21 @@ namespace flappybird
 			{
 				credits.color = WHITE;
 			}
+
+			if (MouseColision(rules))
+			{
+				rules.color = GRAY;
+
+				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+				{
+					currentScene = Screen::Rules;
+					rules::InitRules();
+				}
+			}
+			else
+			{
+				rules.color = WHITE;
+			}
 		}
 		
 
@@ -109,6 +129,7 @@ namespace flappybird
 			DrawSprite(onePlayer);
 			DrawSprite(twoPlayers);
 			DrawSprite(credits);
+			DrawSprite(rules);
 			DrawSprite(exit);
 		}
 	}
