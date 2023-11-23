@@ -95,17 +95,23 @@ namespace flappybird
 			BackgroundLayer5_2.position.x = (static_cast<float>(BackgroundLayer5_1.texture.width) * BackgroundLayer5_1.scale) / distanceBugFix + static_cast<float>(GetScreenWidth());
 		}
 
-		void GameUpdate(Screen& currentScene, int& pointsCounter)
-		{			
+		void GameUpdate(Screen& currentScene, int& pointsCounter, bool& isGameOver)
+		{						
+			if (isGameOver)
+			{
+				InitGame(players, pointsCounter);
+				isGameOver = false;
+			}
+			
 			if (players == PlayerCount::TwoPlayers)
 			{
 				BirdUpdate(playerTwo);
-				CheckCollitions(currentScene, playerTwo, pointsCounter);
+				CheckCollitions(playerTwo, pointsCounter, isGameOver);
 			}
 
 			BirdUpdate(player);
 			ObstacleUpdate(obstacleArray, player, playerTwo);
-			CheckCollitions(currentScene, player, pointsCounter);
+			CheckCollitions(player, pointsCounter, isGameOver);
 			UpdateParallax();
 			
 			if (IsKeyDown(KEY_ESCAPE))
@@ -161,12 +167,11 @@ namespace flappybird
 			DrawSprite(BackgroundLayer5_2);
 		}
 
-		void CheckCollitions(Screen& currentScene, Bird toCheck, int& pointsCounter)
+		void CheckCollitions(Bird toCheck, int& pointsCounter, bool& isGameOver)
 		{
 			if (toCheck.hitBox.y + toCheck.hitBox.height > GetScreenHeight() - toCheck.hitBox.height)
 			{
-				currentScene = Screen::LoseScreen;
-				loseScreen::InitLoseScreen();
+				isGameOver = true;
 				return;
 			}
 
@@ -176,8 +181,7 @@ namespace flappybird
 				{
 					if (CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].lowPart) || CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].topPart))
 					{
-						currentScene = Screen::LoseScreen;
-						loseScreen::InitLoseScreen();
+						isGameOver = true;
 						return;
 					}
 				}

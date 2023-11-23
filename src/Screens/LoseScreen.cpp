@@ -3,9 +3,12 @@
 #include <iostream>
 #include <string>
 
+#include "ProgramUtilities/Utilities.h"
+
 namespace flappybird
 {
 	static Sprite BackMenuButton;
+	static Sprite PlayAgain;
 
 	namespace loseScreen
 	{
@@ -14,6 +17,10 @@ namespace flappybird
 			BackMenuButton.position = { 400,550 };
 			BackMenuButton.scale = 0.6f;
 			BackMenuButton.texture = LoadTexture("res/credits/ReturnMenuButton.png");
+
+			PlayAgain.position = { 200,650 };
+			PlayAgain.scale = 0.6f;
+			PlayAgain.texture = LoadTexture("res/menu/OnePlayer.png");
 		}
 
 		void LoseScreenUpdate(Screen& currentScene)
@@ -31,6 +38,22 @@ namespace flappybird
 			{
 				BackMenuButton.color = WHITE;
 			}
+
+			if (MouseColision(PlayAgain))
+			{
+				PlayAgain.color = GRAY;
+
+				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+				{
+					currentScene = Screen::Game;
+					
+				}
+			}
+			else
+			{
+				PlayAgain.color = WHITE;
+			}
+
 		}
 
 		void LoseScreenDrawing(int pointsCounter)

@@ -12,7 +12,9 @@
 
 namespace flappybird
 {
-	int pointsCounter;
+	static int pointsCounter;
+	static bool isGameOver;
+	static bool isPaused;
 
 	Screen currentScreen;
 
@@ -43,6 +45,7 @@ namespace flappybird
 		InitWindow(windowW, windowH, "Flappy Viko by Mateo Viko Monastra");
 
 		menu::InitMenu();
+		//InitPause
 		currentScreen = Screen::Menu;
 		SetRandomSeed(NULL);
 		SetExitKey(NULL);
@@ -57,16 +60,16 @@ namespace flappybird
 			menu::MenuUpdate(currentScreen, pointsCounter);
 			break;
 		case Screen::Game:
-			game::GameUpdate(currentScreen, pointsCounter);
+			if(!isPaused)
+				game::GameUpdate(currentScreen, pointsCounter, isGameOver);
+			else
+				//PauseUpdate(isGameOver&)
 			break;
 		case Screen::Credits:
 			credits::CreditsUpdate(currentScreen);
 			break;
 		case Screen::Rules:
 			rules::RulesUpdate(currentScreen);
-			break;
-		case Screen::LoseScreen:
-			loseScreen::LoseScreenUpdate(currentScreen);
 			break;
 		case Screen::Exit:
 			Close();

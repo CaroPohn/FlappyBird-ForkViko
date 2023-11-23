@@ -28,6 +28,7 @@
     <ClCompile Include="src\Screens\Game.cpp" />
     <ClCompile Include="src\Screens\LoseScreen.cpp" />
     <ClCompile Include="src\Screens\Menu.cpp" />
+    <ClCompile Include="src\Screens\Pause.cpp" />
     <ClCompile Include="src\Screens\Rules.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +41,7 @@
     <ClInclude Include="src\Screens\Game.h" />
     <ClInclude Include="src\Screens\LoseScreen.h" />
     <ClInclude Include="src\Screens\Menu.h" />
+    <ClInclude Include="src\Screens\Pause.h" />
     <ClInclude Include="src\Screens\Rules.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

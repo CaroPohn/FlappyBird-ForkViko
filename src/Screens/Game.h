@@ -17,12 +17,12 @@ namespace flappybird
 		
 		void InitGame(PlayerCount playerCount, int& pointsCounter);
 		void InitParallax();
-		void GameUpdate(Screen& currentScene, int& pointsCounter);
+		void GameUpdate(Screen& currentScene, int& pointsCounter, bool& isGameOver);
 		void UpdateParallax();
 		void UpdateLayer(Sprite& layer);
 		void DrawGame(int pointsCounter);
 		void DrawParallax();
-		void CheckCollitions(Screen& currentScene, Bird toCheck, int& pointsCounter);
+		void CheckCollitions(Bird toCheck, int& pointsCounter, bool& isGameOver);
 		void CheckBirdObstacleCollition(Obstacle& obstacle, Bird& playerToCheck, int& pointsCounter);
 	}
 }
