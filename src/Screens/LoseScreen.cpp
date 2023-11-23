@@ -4,7 +4,7 @@ namespace flappybird
 {
 	namespace loseScreen
 	{
-		void InitLoseScreen()
+		/*void InitLoseScreen()
 		{
 
 		}
@@ -17,7 +17,7 @@ namespace flappybird
 		void LoseScreenDrawing()
 		{
 
-		}
+		}*/
 		
 	}
 }
