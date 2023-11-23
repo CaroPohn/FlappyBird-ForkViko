@@ -189,7 +189,7 @@ namespace flappybird
 			CheckBirdObstacleCollition(obstacleArray[1], playerTwo);
 		}
 
-		void CheckBirdObstacleCollition(Obstacle& obstacle, Bird& playerToCheck, int pointsCounter)
+		void CheckBirdObstacleCollition(Obstacle& obstacle, Bird& playerToCheck)
 		{
 			if (obstacle.justGivenPoints)
 				return;
