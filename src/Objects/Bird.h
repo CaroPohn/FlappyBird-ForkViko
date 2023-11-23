@@ -18,8 +18,8 @@ namespace flappybird
 			const float ROTATION_GRAVITY = { 50 };
 			const float TOP_ROTATION = { -40 };
 			const float LOWEST_ROTATION = { 50 };
-		
-		
+
+			KeyboardKey actionKey;
 
 			Rectangle hitBox = {};
 			Color color = { WHITE };
@@ -30,11 +30,13 @@ namespace flappybird
 			float gravity = { 300 };
 
 			float aceleration = {-250};
+
+			bool alredyChecked = false;
 		};
 	
 		void BirdUpdate(Bird& player);
 		void BirdDraw(Bird player);
-		void InitBird(Bird& player);
+		void InitBird(Bird& player, float xPos, KeyboardKey key);
 	
 	}
 }

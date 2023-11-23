@@ -15,7 +15,7 @@ namespace flappybird
 			isOnScreen = false;
 		}
 
-		void ObstacleUpdate(Obstacle obstacleArray[])
+		void ObstacleUpdate(Obstacle obstacleArray[], Bird& playerOne, Bird& playerTwo)
 		{
 			for (int i = 0; i < Obstacle::obstacleCounter; i++)
 			{
@@ -28,7 +28,7 @@ namespace flappybird
 					if (obstacleArray[i].topPart.x + obstacleArray[i].topPart.width < 0)
 					{
 						obstacleArray[i].isOnScreen = false;
-						ResetObstacle(obstacleArray[i]);
+						ResetObstacle(obstacleArray[i], playerOne, playerTwo);
 					}
 				}
 			}
@@ -62,9 +62,11 @@ namespace flappybird
 			obstacle.topPart = { posX , 0, 90, obstacle.middleSpace.y };
 			obstacle.lowPart = { posX , obstacle.middleSpace.y + obstacle.middleSpace.height, 90, static_cast<float>(GetScreenHeight()) };
 			obstacle.isOnScreen = true;
+			obstacle.timesChecked = 0;
+			obstacle.justGivenPoints = false;
 		}
 
-		void ResetObstacle(Obstacle& obstacle)
+		void ResetObstacle(Obstacle& obstacle, Bird& playerOne, Bird& playerTwo)
 		{
 			//Tiene que crear un obstaculo. 
 
@@ -72,7 +74,11 @@ namespace flappybird
 			obstacle.topPart = { static_cast<float>(GetScreenWidth()) , 0, 90, obstacle.middleSpace.y };
 			obstacle.lowPart = { static_cast<float>(GetScreenWidth()) , obstacle.middleSpace.y + obstacle.middleSpace.height, 90, static_cast<float>(GetScreenHeight()) };
 			obstacle.isOnScreen = true;
+			obstacle.timesChecked = 0;
+			obstacle.justGivenPoints = false;
 
+			playerOne.alredyChecked = false;
+			playerTwo.alredyChecked = false;
 		}
 	}
 }

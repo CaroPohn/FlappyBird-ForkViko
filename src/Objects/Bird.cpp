@@ -17,7 +17,7 @@ namespace flappybird
 
 			if (player.hitBox.y - player.hitBox.height > 0)
 			{
-				if (IsKeyPressed(KEY_UP) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT) )
+				if (IsKeyPressed(player.actionKey))
 				{
 					player.velocity.y = (player.aceleration);
 					player.rotation = player.TOP_ROTATION;
@@ -81,11 +81,13 @@ namespace flappybird
 			DrawTexturePro(player.texture,player.source,player.dest,player.origin,player.rotation,player.color);
 		}
 
-		void InitBird(Bird& player)
+		void InitBird(Bird& player, float xPos, KeyboardKey key)
 		{
+			player.actionKey = key;
+
 			Texture2D playerTexture = LoadTexture("res/game/bird/BirdMovement.png");
 
-			player.hitBox = { static_cast<float>(GetScreenWidth()) / 2 - 160, static_cast<float>(GetScreenHeight()) / 2 , 30, 30 };
+			player.hitBox = { xPos, static_cast<float>(GetScreenHeight()) / 2 , 30, 30 };
 			player.velocity = {0,0};
 
 			player.texture = playerTexture;

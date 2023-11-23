@@ -26,6 +26,7 @@
     <ClCompile Include="src\ScreenManagements\ScreenManager.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\Game.cpp" />
+    <ClCompile Include="src\Screens\LoseScreen.cpp" />
     <ClCompile Include="src\Screens\Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +37,7 @@
     <ClInclude Include="src\ScreenManagements\Screens.h" />
     <ClInclude Include="src\Screens\Credits.h" />
     <ClInclude Include="src\Screens\Game.h" />
+    <ClInclude Include="src\Screens\LoseScreen.h" />
     <ClInclude Include="src\Screens\Menu.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

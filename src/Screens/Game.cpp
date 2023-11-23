@@ -4,6 +4,8 @@
 
 #include "Objects/Bird.h"
 #include "Objects/Obstacles.h"
+#include <iostream>
+#include <string>
 
 namespace flappybird
 {
@@ -11,7 +13,10 @@ namespace flappybird
 	{
 		const int MAX_OBSTACLES = 2;
 
+		int pointsCounter;
+
 		Bird player;
+		Bird playerTwo;
 		Obstacle obstacleArray[MAX_OBSTACLES];
 
 		Sprite BackgroundLayer1;
@@ -25,13 +30,23 @@ namespace flappybird
 
 		Sprite BackgroundLayer5_1;
 		Sprite BackgroundLayer5_2;
+
+		PlayerCount players;
 		
-		void InitGame()
+		void InitGame(PlayerCount playerCount)
 		{
+			players = playerCount;
+			pointsCounter = 0;
+
 			float firstPipeX = static_cast<float>(GetScreenWidth());
 			float secondPipeX = firstPipeX + firstPipeX / 2;
+
+			if (players == PlayerCount::TwoPlayers)
+			{
+				InitBird(playerTwo, 200, KeyboardKey::KEY_UP);		
+			}
 			
-			InitBird(player);
+			InitBird(player, 100, KeyboardKey::KEY_W);
 			InitObstacle(obstacleArray[0], firstPipeX);
 			InitObstacle(obstacleArray[1], secondPipeX);
 			InitParallax();
@@ -82,13 +97,16 @@ namespace flappybird
 		}
 
 		void GameUpdate(Screen& currentScene)
-		{
+		{			
+			if (players == PlayerCount::TwoPlayers)
+			{
+				BirdUpdate(playerTwo);
+				CheckCollitions(currentScene, playerTwo);
+			}
+
 			BirdUpdate(player);
-
-			ObstacleUpdate(obstacleArray);
-			
-			CheckCollitions(currentScene);
-
+			ObstacleUpdate(obstacleArray, player, playerTwo);
+			CheckCollitions(currentScene, player);
 			UpdateParallax();
 			
 			if (IsKeyDown(KEY_ESCAPE))
@@ -122,7 +140,14 @@ namespace flappybird
 			DrawParallax();
 			ObstacleDraw(obstacleArray);
 			BirdDraw(player);
+
+			if (players == PlayerCount::TwoPlayers)
+			{
+				BirdDraw(playerTwo);
+			}
+
 			DrawText("Press Esc to return Menu", GetScreenWidth() - 300, 20, 20, BLACK);
+			DrawText(std::to_string(pointsCounter).c_str(), 10, 10, 70, BLACK);
 		}
 
 		void DrawParallax()
@@ -137,21 +162,51 @@ namespace flappybird
 			DrawSprite(BackgroundLayer5_2);
 		}
 
-		void CheckCollitions(Screen& currentScene)
+		void CheckCollitions(Screen& currentScene, Bird toCheck)
 		{
+			if (toCheck.hitBox.y + toCheck.hitBox.height > GetScreenHeight() - toCheck.hitBox.height)
+			{
+				currentScene = Screen::LoseScreen;
+				return;
+			}
+
 			for (int i = 0; i < MAX_OBSTACLES; i++)
 			{
 				if (obstacleArray[i].isOnScreen)
 				{
-					if (CheckCollisionRecs(player.hitBox, obstacleArray[i].lowPart) || CheckCollisionRecs(player.hitBox, obstacleArray[i].topPart))
+					if (CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].lowPart) || CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].topPart))
 					{
-						currentScene = Screen::Menu;
+						currentScene = Screen::LoseScreen;
+						return;
 					}
 				}
 			}
-			if (player.hitBox.y + player.hitBox.height > GetScreenHeight() - player.hitBox.height)
+
+			CheckBirdObstacleCollition(obstacleArray[0], player);
+			CheckBirdObstacleCollition(obstacleArray[1], player);
+
+			CheckBirdObstacleCollition(obstacleArray[0], playerTwo);
+			CheckBirdObstacleCollition(obstacleArray[1], playerTwo);
+		}
+
+		void CheckBirdObstacleCollition(Obstacle& obstacle, Bird& playerToCheck, int pointsCounter)
+		{
+			if (obstacle.justGivenPoints)
+				return;
+
+			if (playerToCheck.alredyChecked)
+				return;
+
+			if (CheckCollisionRecs(obstacle.middleSpace, playerToCheck.hitBox))
 			{
-				InitBird(player);
+				obstacle.timesChecked++;
+				playerToCheck.alredyChecked = true;
+			}
+
+			if (obstacle.timesChecked == static_cast<int>(players))
+			{
+				pointsCounter++;
+				obstacle.justGivenPoints = true;
 			}
 		}
 	}
