@@ -10,6 +10,8 @@
 
 namespace flappybird
 {
+	int pointsCounter;
+
 	Screen currentScreen;
 
 	static void InitProgram();
@@ -50,10 +52,10 @@ namespace flappybird
 		switch (currentScreen)
 		{
 		case Screen::Menu:
-			menu::MenuUpdate(currentScreen);
+			menu::MenuUpdate(currentScreen, pointsCounter);
 			break;
 		case Screen::Game:
-			game::GameUpdate(currentScreen);
+			game::GameUpdate(currentScreen, pointsCounter);
 			break;
 		case Screen::Credits:
 			credits::CreditsUpdate(currentScreen);
@@ -80,7 +82,7 @@ namespace flappybird
 			menu::MenuDrawing();
 			break;
 		case Screen::Game:
-			game::DrawGame();
+			game::DrawGame(pointsCounter);
 			break;
 		case Screen::Credits:
 			credits::CreditsDrawing();

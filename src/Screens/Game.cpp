@@ -13,7 +13,7 @@ namespace flappybird
 	{
 		const int MAX_OBSTACLES = 2;
 
-		int pointsCounter;
+		//int pointsCounter;
 
 		Bird player;
 		Bird playerTwo;
@@ -33,7 +33,7 @@ namespace flappybird
 
 		PlayerCount players;
 		
-		void InitGame(PlayerCount playerCount)
+		void InitGame(PlayerCount playerCount, int& pointsCounter)
 		{
 			players = playerCount;
 			pointsCounter = 0;
@@ -96,17 +96,17 @@ namespace flappybird
 			BackgroundLayer5_2.position.x = (static_cast<float>(BackgroundLayer5_1.texture.width) * BackgroundLayer5_1.scale) / distanceBugFix + static_cast<float>(GetScreenWidth());
 		}
 
-		void GameUpdate(Screen& currentScene)
+		void GameUpdate(Screen& currentScene, int& pointsCounter)
 		{			
 			if (players == PlayerCount::TwoPlayers)
 			{
 				BirdUpdate(playerTwo);
-				CheckCollitions(currentScene, playerTwo);
+				CheckCollitions(currentScene, playerTwo, pointsCounter);
 			}
 
 			BirdUpdate(player);
 			ObstacleUpdate(obstacleArray, player, playerTwo);
-			CheckCollitions(currentScene, player);
+			CheckCollitions(currentScene, player, pointsCounter);
 			UpdateParallax();
 			
 			if (IsKeyDown(KEY_ESCAPE))
@@ -135,7 +135,7 @@ namespace flappybird
 			}
 		}
 
-		void DrawGame()
+		void DrawGame(int pointsCounter)
 		{
 			DrawParallax();
 			ObstacleDraw(obstacleArray);
@@ -162,7 +162,7 @@ namespace flappybird
 			DrawSprite(BackgroundLayer5_2);
 		}
 
-		void CheckCollitions(Screen& currentScene, Bird toCheck)
+		void CheckCollitions(Screen& currentScene, Bird toCheck, int& pointsCounter)
 		{
 			if (toCheck.hitBox.y + toCheck.hitBox.height > GetScreenHeight() - toCheck.hitBox.height)
 			{
@@ -182,14 +182,14 @@ namespace flappybird
 				}
 			}
 
-			CheckBirdObstacleCollition(obstacleArray[0], player);
-			CheckBirdObstacleCollition(obstacleArray[1], player);
+			CheckBirdObstacleCollition(obstacleArray[0], player, pointsCounter);
+			CheckBirdObstacleCollition(obstacleArray[1], player, pointsCounter);
 
-			CheckBirdObstacleCollition(obstacleArray[0], playerTwo);
-			CheckBirdObstacleCollition(obstacleArray[1], playerTwo);
+			CheckBirdObstacleCollition(obstacleArray[0], playerTwo, pointsCounter);
+			CheckBirdObstacleCollition(obstacleArray[1], playerTwo, pointsCounter);
 		}
 
-		void CheckBirdObstacleCollition(Obstacle& obstacle, Bird& playerToCheck)
+		void CheckBirdObstacleCollition(Obstacle& obstacle, Bird& playerToCheck, int& pointsCounter)
 		{
 			if (obstacle.justGivenPoints)
 				return;
