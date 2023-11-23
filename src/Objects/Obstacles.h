@@ -8,11 +8,9 @@ namespace flappybird
 	{
 		struct Obstacle
 		{
-			Rectangle topPart = {};
+			Rectangle topPart = {0, 0, 90, 0};
 			Rectangle middleSpace = {};
 			Rectangle lowPart = {};
-
-
 
 			Color color = { RED };
 
@@ -20,14 +18,18 @@ namespace flappybird
 
 			bool isOnScreen = false;
 
-			const float MAX_OBSTACLES = 1.0f;
-			//no se usa
-			const float MAX_PIPES_IN_SCREEN = 1.0f;
+			static int obstacleCounter;
+
+			const int MAX_PIPES_IN_SCREEN = 1;
+
+			Obstacle();
+
 		};
 	
-		void ObstacleUpdate(Obstacle obstacle[]);
-		void ObstacleDraw(Obstacle obstacle[]);
-		void InitObstacle(Obstacle obstacle[]);
+		void ObstacleUpdate(Obstacle obstacleArray[]);
+		void ObstacleDraw(Obstacle obstacleArray[]);
+		void InitObstacle(Obstacle& obstacle, float posX);
+		void ResetObstacle(Obstacle& obstacle);
 	}
 }
 

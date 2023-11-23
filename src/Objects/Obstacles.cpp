@@ -1,83 +1,78 @@
 #include "Obstacles.h"
 
+#include <iostream>
+
 namespace flappybird
 {
 	namespace game
 	{
-		static void CreateObstacle(Obstacle  obstacle[]);
-
-		int obstacleCounter = 0;
 		int currentObstacle = 0;
+		int Obstacle::obstacleCounter = 0;
 
-		void ObstacleUpdate(Obstacle obstacle[])
+		Obstacle::Obstacle()
 		{
-			for (int i = 0; i < obstacle[i].MAX_OBSTACLES; i++)
-			{
-				if (obstacle[i].isOnScreen)
-				{
-					obstacle[i].topPart.x -= obstacle[i].velocity * GetFrameTime();
-					obstacle[i].lowPart.x -= obstacle[i].velocity * GetFrameTime();
-					obstacle[i].middleSpace.x -= obstacle[i].velocity * GetFrameTime();
+			obstacleCounter++;
+			isOnScreen = false;
+		}
 
-					if (obstacle[i].topPart.x + obstacle[i].topPart.width < 0)
+		void ObstacleUpdate(Obstacle obstacleArray[])
+		{
+			for (int i = 0; i < Obstacle::obstacleCounter; i++)
+			{
+				if (obstacleArray[i].isOnScreen)
+				{
+					obstacleArray[i].topPart.x -= obstacleArray[i].velocity * GetFrameTime();
+					obstacleArray[i].lowPart.x -= obstacleArray[i].velocity * GetFrameTime();
+					obstacleArray[i].middleSpace.x -= obstacleArray[i].velocity * GetFrameTime();
+
+					if (obstacleArray[i].topPart.x + obstacleArray[i].topPart.width < 0)
 					{
-						obstacle[i].isOnScreen = false;
+						obstacleArray[i].isOnScreen = false;
+						ResetObstacle(obstacleArray[i]);
 					}
 				}
-
-				CreateObstacle(obstacle);
 			}
 		}
 
-		void ObstacleDraw(Obstacle obstacle[])
+		void ObstacleDraw(Obstacle obstacleArray[])
 		{
-			for (int i = 0; i < obstacle[i].MAX_OBSTACLES; i++)
+			for (int i = 0; i < Obstacle::obstacleCounter; i++)
 			{
-				if (obstacle[i].isOnScreen)
+				if (obstacleArray[i].isOnScreen)
 				{
-					DrawRectangleRec(obstacle[i].topPart, obstacle[i].color);
-					DrawRectangleRec(obstacle[i].lowPart, obstacle[i].color);
-					DrawRectangleRec(obstacle[i].middleSpace, PINK);
+					if (i == 0)
+					{
+						DrawRectangleRec(obstacleArray[i].topPart, obstacleArray[i].color);
+						DrawRectangleRec(obstacleArray[i].lowPart, obstacleArray[i].color);
+						DrawRectangleRec(obstacleArray[i].middleSpace, PINK);
+					}
+					else if (i == 1)
+					{
+						DrawRectangleRec(obstacleArray[i].topPart, GREEN);
+						DrawRectangleRec(obstacleArray[i].lowPart, GREEN);
+						DrawRectangleRec(obstacleArray[i].middleSpace, PINK);
+					}
 				}
 			}
 		}
 
-		void InitObstacle(Obstacle obstacle[])
+		void InitObstacle(Obstacle& obstacle, float posX)
 		{
-			for (int i = 0; i < obstacle[i].MAX_OBSTACLES; i++)
-			{
-				obstacle[i].isOnScreen = false;
-			}
+			obstacle.middleSpace = { posX,  static_cast<float>(GetRandomValue(200,500)), 90, 150.0f };
+			obstacle.topPart = { posX , 0, 90, obstacle.middleSpace.y };
+			obstacle.lowPart = { posX , obstacle.middleSpace.y + obstacle.middleSpace.height, 90, static_cast<float>(GetScreenHeight()) };
+			obstacle.isOnScreen = true;
 		}
-	
-		static void CreateObstacle(Obstacle  obstacle[])
+
+		void ResetObstacle(Obstacle& obstacle)
 		{
-			obstacleCounter = 0;
+			//Tiene que crear un obstaculo. 
 
-			for (int i = 0; i < obstacle[i].MAX_OBSTACLES; i++)
-			{
-				if (obstacle[i].isOnScreen)
-				{
-					obstacleCounter++;
-				}
-			}
+			obstacle.middleSpace = { static_cast<float>(GetScreenWidth()),  static_cast<float>(GetRandomValue(200,500)), 90, 150.0f };
+			obstacle.topPart = { static_cast<float>(GetScreenWidth()) , 0, 90, obstacle.middleSpace.y };
+			obstacle.lowPart = { static_cast<float>(GetScreenWidth()) , obstacle.middleSpace.y + obstacle.middleSpace.height, 90, static_cast<float>(GetScreenHeight()) };
+			obstacle.isOnScreen = true;
 
-			for (int i = 0; i < obstacle[i].MAX_OBSTACLES; i++)
-			{
-
-				if (!obstacle[i].isOnScreen && obstacle[i].MAX_PIPES_IN_SCREEN > obstacleCounter)
-				{
-
-					obstacle[i].middleSpace = { static_cast<float>(GetScreenWidth()),  static_cast<float>(GetRandomValue(200,500)), 90, 150.0f};
-					
-					obstacle[i].topPart = { static_cast<float>(GetScreenWidth()) , 0, 90, obstacle[i].middleSpace.y};
-
-					obstacle[i].lowPart = { static_cast<float>(GetScreenWidth()) , obstacle[i].middleSpace.y + obstacle[i].middleSpace.height, 90, static_cast<float>(GetScreenHeight())};
-
-					obstacle[i].isOnScreen = true;
-				}
-			}
 		}
-	
 	}
 }

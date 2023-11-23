@@ -9,10 +9,10 @@ namespace flappybird
 {
 	namespace game
 	{
-		const int MAX_OBSTACLES = 1;
+		const int MAX_OBSTACLES = 2;
 
 		Bird player;
-		Obstacle obstacle[MAX_OBSTACLES];
+		Obstacle obstacleArray[MAX_OBSTACLES];
 
 		Sprite BackgroundLayer1;
 		Sprite BackgroundLayer2;
@@ -25,46 +25,18 @@ namespace flappybird
 
 		Sprite BackgroundLayer5_1;
 		Sprite BackgroundLayer5_2;
-
-
-		static void GameColitions(Screen& currentScene);
-		static void DrawParallax();
-		static void UpdateParallax();
-		static void UpdateLayer(Sprite& layer);
-		static void InitParallax();
-
-		void GameUpdate(Screen& currentScene)
-		{
-			BirdUpdate(player);
-			
-			ObstacleUpdate(obstacle);
-			
-			GameColitions(currentScene);
-
-			UpdateParallax();
-			
-			if (IsKeyDown(KEY_ESCAPE))
-			{
-				currentScene = Screen::Menu;
-			}
-		}
-
-		void DrawGame()
-		{
-			DrawParallax();
-			BirdDraw(player);
-			ObstacleDraw(obstacle);
-			DrawText("Press Esc to return Menu", GetScreenWidth() - 300, 20, 20, BLACK);
-		}
-
+		
 		void InitGame()
 		{
+			float firstPipeX = static_cast<float>(GetScreenWidth());
+			float secondPipeX = firstPipeX + firstPipeX / 2;
+			
 			InitBird(player);
-			InitObstacle(obstacle);
+			InitObstacle(obstacleArray[0], firstPipeX);
+			InitObstacle(obstacleArray[1], secondPipeX);
 			InitParallax();
 		}
 
-		
 		void InitParallax()
 		{
 			float scale = 0.7f;
@@ -72,7 +44,7 @@ namespace flappybird
 
 			BackgroundLayer1.texture = LoadTexture("res/game/background/layer_1.png");
 			BackgroundLayer1.scale = scale;
-			BackgroundLayer1.position = {0,0};
+			BackgroundLayer1.position = { 0,0 };
 
 			BackgroundLayer2.texture = LoadTexture("res/game/background/layer_2.png");
 			BackgroundLayer2.scale = scale;
@@ -109,26 +81,51 @@ namespace flappybird
 			BackgroundLayer5_2.position.x = (static_cast<float>(BackgroundLayer5_1.texture.width) * BackgroundLayer5_1.scale) / distanceBugFix + static_cast<float>(GetScreenWidth());
 		}
 
-
-		static void GameColitions(Screen& currentScene)
+		void GameUpdate(Screen& currentScene)
 		{
-			for (int i = 0; i < obstacle[i].MAX_OBSTACLES; i++)
+			BirdUpdate(player);
+
+			ObstacleUpdate(obstacleArray);
+			
+			CheckCollitions(currentScene);
+
+			UpdateParallax();
+			
+			if (IsKeyDown(KEY_ESCAPE))
 			{
-				if (obstacle[i].isOnScreen)
-				{
-					if (CheckCollisionRecs(player.hitBox, obstacle[i].lowPart) || CheckCollisionRecs(player.hitBox, obstacle[i].topPart))
-					{
-						currentScene = Screen::Menu;
-					}
-				}
-			}
-			if (player.hitBox.y + player.hitBox.height > GetScreenHeight() - player.hitBox.height)
-			{
-				InitBird(player);
+				currentScene = Screen::Menu;
 			}
 		}
 
-		static void DrawParallax()
+		void UpdateParallax()
+		{
+			UpdateLayer(BackgroundLayer3_1);
+			UpdateLayer(BackgroundLayer3_2);
+			UpdateLayer(BackgroundLayer4_1);
+			UpdateLayer(BackgroundLayer4_2);
+			UpdateLayer(BackgroundLayer5_1);
+			UpdateLayer(BackgroundLayer5_2);
+		}
+
+		void UpdateLayer(Sprite& layer)
+		{
+			layer.position.x -= layer.velocity * GetFrameTime();
+
+			if (layer.position.x + layer.texture.width * layer.scale < 0)
+			{
+				layer.position.x = static_cast<float>(GetScreenWidth());
+			}
+		}
+
+		void DrawGame()
+		{
+			DrawParallax();
+			ObstacleDraw(obstacleArray);
+			BirdDraw(player);
+			DrawText("Press Esc to return Menu", GetScreenWidth() - 300, 20, 20, BLACK);
+		}
+
+		void DrawParallax()
 		{
 			DrawSprite(BackgroundLayer1);
 			DrawSprite(BackgroundLayer2);
@@ -140,23 +137,21 @@ namespace flappybird
 			DrawSprite(BackgroundLayer5_2);
 		}
 
-		static void UpdateParallax()
+		void CheckCollitions(Screen& currentScene)
 		{
-			UpdateLayer(BackgroundLayer3_1);
-			UpdateLayer(BackgroundLayer3_2);
-			UpdateLayer(BackgroundLayer4_1);
-			UpdateLayer(BackgroundLayer4_2);
-			UpdateLayer(BackgroundLayer5_1);
-			UpdateLayer(BackgroundLayer5_2);
-		}
-
-		static void UpdateLayer(Sprite& layer)
-		{
-			layer.position.x -= layer.velocity * GetFrameTime();
-
-			if (layer.position.x + layer.texture.width * layer.scale < 0)
+			for (int i = 0; i < MAX_OBSTACLES; i++)
 			{
-				layer.position.x = static_cast<float>(GetScreenWidth());
+				if (obstacleArray[i].isOnScreen)
+				{
+					if (CheckCollisionRecs(player.hitBox, obstacleArray[i].lowPart) || CheckCollisionRecs(player.hitBox, obstacleArray[i].topPart))
+					{
+						currentScene = Screen::Menu;
+					}
+				}
+			}
+			if (player.hitBox.y + player.hitBox.height > GetScreenHeight() - player.hitBox.height)
+			{
+				InitBird(player);
 			}
 		}
 	}
