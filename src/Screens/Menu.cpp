@@ -10,46 +10,66 @@ namespace flappybird
 	namespace menu
 	{
 		static Sprite title;
-		static Sprite play;
-		static Sprite exit;
+		static Sprite onePlayer;
+		static Sprite twoPlayers;
+		static Sprite rules;
 		static Sprite credits;
+		static Sprite exit;
 
 		void InitMenu()
 		{
-			title.position = { static_cast<float>(GetScreenWidth()) / 2 -240, 60 };
+			title.position = { static_cast<float>(GetScreenWidth()) / 2 - 240, 60 };
 			title.scale = 0.7f;
 			title.texture = LoadTexture("res/menu/Title.png");
 
-			play.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 400};
-			play.scale = 0.5f;
-			play.texture = LoadTexture("res/menu/PlayButton.png");
+			onePlayer.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 300};
+			onePlayer.scale = 0.5f;
+			onePlayer.texture = LoadTexture("res/menu/OnePlayer.png");
+
+			twoPlayers.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 400 };
+			twoPlayers.scale = 0.5f;
+			twoPlayers.texture = LoadTexture("res/menu/TwoPlayers.png");
+
+			credits.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 500};
+			credits.scale = 0.5f;
+			credits.texture = LoadTexture("res/menu/CreditsButton.png");
 
 			exit.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 640 };
 			exit.scale = 0.5f;
 			exit.texture = LoadTexture("res/menu/ExitButton.png");
 
-			credits.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 510};
-			credits.scale = 0.5f;
-			credits.texture = LoadTexture("res/menu/CreditsButton.png");
-
-			
 		}
 
 		void MenuUpdate(Screen& currentScene)
 		{
-			if (MouseColision(play))
+			if (MouseColision(onePlayer))
 			{
-				play.color = GRAY;
+				onePlayer.color = GRAY;
 				
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
 					currentScene = Screen::Game;
-					game::InitGame();
+					game::InitGame(game::PlayerCount::OnePlayer);
 				}
 			}
 			else
 			{
-				play.color = WHITE;
+				onePlayer.color = WHITE;
+			}
+
+			if (MouseColision(twoPlayers))
+			{
+				twoPlayers.color = GRAY;
+
+				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+				{
+					currentScene = Screen::Game;
+					game::InitGame(game::PlayerCount::TwoPlayers);
+				}
+			}
+			else
+			{
+				twoPlayers.color = WHITE;
 			}
 
 			if (MouseColision(exit))
@@ -86,7 +106,8 @@ namespace flappybird
 		void MenuDrawing()
 		{
 			DrawSprite(title);
-			DrawSprite(play);
+			DrawSprite(onePlayer);
+			DrawSprite(twoPlayers);
 			DrawSprite(credits);
 			DrawSprite(exit);
 		}
