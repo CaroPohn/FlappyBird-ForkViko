@@ -49,8 +49,8 @@ namespace flappybird
 			}
 			
 			InitBird(player, 100, KeyboardKey::KEY_W);
-			InitObstacle(obstacleArray[0], firstPipeX);
-			InitObstacle(obstacleArray[1], secondPipeX);
+			InitObstacle(obstacleArray[0], firstPipeX, player, playerTwo);
+			InitObstacle(obstacleArray[1], secondPipeX, player, playerTwo);
 			InitParallax();
 		}
 

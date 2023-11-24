@@ -32,7 +32,7 @@ namespace flappybird
 	
 		void ObstacleUpdate(Obstacle obstacleArray[], Bird& playerOne, Bird& playerTwo);
 		void ObstacleDraw(Obstacle obstacleArray[]);
-		void InitObstacle(Obstacle& obstacle, float posX);
+		void InitObstacle(Obstacle& obstacle, float posX, Bird& playerOne, Bird& playerTwo);
 		void ResetObstacle(Obstacle& obstacle, Bird& playerOne, Bird& playerTwo);
 	}
 }

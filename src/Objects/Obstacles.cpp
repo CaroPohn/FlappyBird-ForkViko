@@ -56,7 +56,7 @@ namespace flappybird
 			}
 		}
 
-		void InitObstacle(Obstacle& obstacle, float posX)
+		void InitObstacle(Obstacle& obstacle, float posX, Bird& playerOne, Bird& playerTwo)
 		{
 			obstacle.middleSpace = { posX,  static_cast<float>(GetRandomValue(200,500)), 90, 150.0f };
 			obstacle.topPart = { posX , 0, 90, obstacle.middleSpace.y };
@@ -64,6 +64,9 @@ namespace flappybird
 			obstacle.isOnScreen = true;
 			obstacle.timesChecked = 0;
 			obstacle.justGivenPoints = false;
+
+			playerOne.alredyChecked = false;
+			playerTwo.alredyChecked = false;
 		}
 
 		void ResetObstacle(Obstacle& obstacle, Bird& playerOne, Bird& playerTwo)
