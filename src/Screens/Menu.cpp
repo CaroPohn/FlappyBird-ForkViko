@@ -45,7 +45,7 @@ namespace flappybird
 
 		}
 
-		void MenuUpdate(Screen& currentScene, int& pointsCounter)
+		void MenuUpdate(Screen& currentScene, int& pointsCounter, bool& isGameOver, bool& isPaused)
 		{
 			if (MouseColision(onePlayer))
 			{
@@ -54,7 +54,7 @@ namespace flappybird
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
 					currentScene = Screen::Game;
-					game::InitGame(game::PlayerCount::OnePlayer, pointsCounter);
+					game::InitGame(game::PlayerCount::OnePlayer, pointsCounter, isGameOver, isPaused);
 				}
 			}
 			else
@@ -69,7 +69,7 @@ namespace flappybird
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
 					currentScene = Screen::Game;
-					game::InitGame(game::PlayerCount::TwoPlayers, pointsCounter);
+					game::InitGame(game::PlayerCount::TwoPlayers, pointsCounter, isGameOver, isPaused);
 				}
 			}
 			else

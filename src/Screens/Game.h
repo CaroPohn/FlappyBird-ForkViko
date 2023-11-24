@@ -15,14 +15,14 @@ namespace flappybird
 			TwoPlayers = 2
 		};
 		
-		void InitGame(PlayerCount playerCount, int& pointsCounter);
+		void InitGame(PlayerCount playerCount, int& pointsCounter, bool& isGameOver, bool& isPaused);
 		void InitParallax();
-		void GameUpdate(Screen& currentScene, int& pointsCounter, bool& isGameOver);
+		void GameUpdate(int& pointsCounter, bool& isGameOver, bool& isPaused);
 		void UpdateParallax();
 		void UpdateLayer(Sprite& layer);
 		void DrawGame(int pointsCounter);
 		void DrawParallax();
-		void CheckCollitions(Bird toCheck, int& pointsCounter, bool& isGameOver);
+		void CheckCollitions(Bird toCheck, int& pointsCounter, bool& isGameOver, bool& isPaused);
 		void CheckBirdObstacleCollition(Obstacle& obstacle, Bird& playerToCheck, int& pointsCounter);
 	}
 }

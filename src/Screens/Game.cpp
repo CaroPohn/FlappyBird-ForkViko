@@ -32,10 +32,13 @@ namespace flappybird
 
 		PlayerCount players;
 		
-		void InitGame(PlayerCount playerCount, int& pointsCounter)
+		void InitGame(PlayerCount playerCount, int& pointsCounter, bool& isGameOver, bool& isPaused)
 		{
 			players = playerCount;
 			pointsCounter = 0;
+
+			isGameOver = false;
+			isPaused = false;
 
 			float firstPipeX = static_cast<float>(GetScreenWidth());
 			float secondPipeX = firstPipeX + firstPipeX / 2;
@@ -95,28 +98,28 @@ namespace flappybird
 			BackgroundLayer5_2.position.x = (static_cast<float>(BackgroundLayer5_1.texture.width) * BackgroundLayer5_1.scale) / distanceBugFix + static_cast<float>(GetScreenWidth());
 		}
 
-		void GameUpdate(Screen& currentScene, int& pointsCounter, bool& isGameOver)
+		void GameUpdate(int& pointsCounter, bool& isGameOver, bool& isPaused)
 		{						
 			if (isGameOver)
 			{
-				InitGame(players, pointsCounter);
+				InitGame(players, pointsCounter, isGameOver, isPaused);
 				isGameOver = false;
 			}
 			
 			if (players == PlayerCount::TwoPlayers)
 			{
 				BirdUpdate(playerTwo);
-				CheckCollitions(playerTwo, pointsCounter, isGameOver);
+				CheckCollitions(playerTwo, pointsCounter, isGameOver, isPaused);
 			}
 
 			BirdUpdate(player);
 			ObstacleUpdate(obstacleArray, player, playerTwo);
-			CheckCollitions(player, pointsCounter, isGameOver);
+			CheckCollitions(player, pointsCounter, isGameOver, isPaused);
 			UpdateParallax();
 			
 			if (IsKeyDown(KEY_ESCAPE))
 			{
-				currentScene = Screen::Menu;
+				isPaused = true;
 			}
 		}
 
@@ -167,11 +170,12 @@ namespace flappybird
 			DrawSprite(BackgroundLayer5_2);
 		}
 
-		void CheckCollitions(Bird toCheck, int& pointsCounter, bool& isGameOver)
+		void CheckCollitions(Bird toCheck, int& pointsCounter, bool& isGameOver, bool& isPaused)
 		{
 			if (toCheck.hitBox.y + toCheck.hitBox.height > GetScreenHeight() - toCheck.hitBox.height)
 			{
 				isGameOver = true;
+				isPaused = true;
 				return;
 			}
 
@@ -182,6 +186,7 @@ namespace flappybird
 					if (CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].lowPart) || CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].topPart))
 					{
 						isGameOver = true;
+						isPaused = true;
 						return;
 					}
 				}

@@ -8,7 +8,7 @@
 #include "Screens/Credits.h"
 #include "Screens/Rules.h"
 #include "Screens/LoseScreen.h"
-
+#include "Screens/Pause.h"
 
 namespace flappybird
 {
@@ -45,7 +45,7 @@ namespace flappybird
 		InitWindow(windowW, windowH, "Flappy Viko by Mateo Viko Monastra");
 
 		menu::InitMenu();
-		//InitPause
+		pause::InitPause();
 		currentScreen = Screen::Menu;
 		SetRandomSeed(NULL);
 		SetExitKey(NULL);
@@ -57,13 +57,13 @@ namespace flappybird
 		switch (currentScreen)
 		{
 		case Screen::Menu:
-			menu::MenuUpdate(currentScreen, pointsCounter);
+			menu::MenuUpdate(currentScreen, pointsCounter, isGameOver, isPaused);
 			break;
 		case Screen::Game:
-			if(!isPaused)
-				game::GameUpdate(currentScreen, pointsCounter, isGameOver);
+			if (!isPaused)
+				game::GameUpdate(pointsCounter, isGameOver, isPaused);
 			else
-				//PauseUpdate(isGameOver&)
+				pause::PauseUpdate(currentScreen, isPaused);
 			break;
 		case Screen::Credits:
 			credits::CreditsUpdate(currentScreen);
@@ -91,6 +91,8 @@ namespace flappybird
 			break;
 		case Screen::Game:
 			game::DrawGame(pointsCounter);
+			if (isPaused)
+				pause::DrawPause(isGameOver, pointsCounter);
 			break;
 		case Screen::Credits:
 			credits::CreditsDrawing();
