@@ -94,8 +94,10 @@ namespace flappybird
 			player.rotation = 0;
 
 			player.dest = { player.hitBox.x, player.hitBox.y, player.SPRITE_SIZE, player.SPRITE_SIZE };
+			//player.origin = { player.hitBox.width, player.hitBox.height};
 			player.origin = { player.hitBox.width, player.hitBox.height};
-			player.source = { player.texture.width / 4.0f, 0, static_cast<float>(player.texture.width) / 4, static_cast<float>(player.texture.height)};
+			//player.source = { player.texture.width / 4.0f, 0, static_cast<float>(player.texture.width) / 4, static_cast<float>(player.texture.height)};
+			player.source = { 0, 0, static_cast<float>(player.texture.width) / 4, static_cast<float>(player.texture.height)};
 		}
 	}
 }
