@@ -20,6 +20,12 @@ namespace flappybird
 		Texture2D player1Texture;
 		Texture2D player2Texture;
 
+		Texture2D upper1;
+		Texture2D upper2;
+
+		Texture2D bottom1;
+		Texture2D bottom2;
+
 		Obstacle obstacleArray[MAX_OBSTACLES];
 
 		Sprite BackgroundLayer1;
@@ -50,14 +56,20 @@ namespace flappybird
 			player1Texture = LoadTexture("res/game/bird/player1.png");
 			player2Texture = LoadTexture("res/game/bird/player2.png");
 
+			upper1 = LoadTexture("res/game/obstacle/upObstacle.png");
+			upper2 = LoadTexture("res/game/obstacle/upObstacleDark.png");
+
+			bottom1 = LoadTexture("res/game/obstacle/downObstacle.png");
+			bottom2 = LoadTexture("res/game/obstacle/downObstacleDark.png");
+
 			if (players == PlayerCount::TwoPlayers)
 			{
 				InitBird(playerTwo, 200, KeyboardKey::KEY_UP, player2Texture);		
 			}
 			
 			InitBird(player, 100, KeyboardKey::KEY_W, player1Texture);
-			InitObstacle(obstacleArray[0], firstPipeX, player, playerTwo);
-			InitObstacle(obstacleArray[1], secondPipeX, player, playerTwo);
+			InitObstacle(obstacleArray[0], firstPipeX, player, playerTwo, upper1, bottom1);
+			InitObstacle(obstacleArray[1], secondPipeX, player, playerTwo, upper2, bottom2);
 			InitParallax();
 		}
 

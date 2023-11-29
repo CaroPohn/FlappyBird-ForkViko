@@ -40,30 +40,25 @@ namespace flappybird
 			{
 				if (obstacleArray[i].isOnScreen)
 				{
-					if (i == 0)
-					{
-						DrawRectangleRec(obstacleArray[i].topPart, obstacleArray[i].color);
-						DrawRectangleRec(obstacleArray[i].lowPart, obstacleArray[i].color);
-						DrawRectangleRec(obstacleArray[i].middleSpace, PINK);
-					}
-					else if (i == 1)
-					{
-						DrawRectangleRec(obstacleArray[i].topPart, GREEN);
-						DrawRectangleRec(obstacleArray[i].lowPart, GREEN);
-						DrawRectangleRec(obstacleArray[i].middleSpace, PINK);
-					}
+					//DrawRectangleRec(obstacleArray[i].topPart, obstacleArray[i].color);
+					//DrawRectangleRec(obstacleArray[i].lowPart, obstacleArray[i].color);
+					//DrawRectangleRec(obstacleArray[i].middleSpace, PINK);
+					DrawTexture(obstacleArray[i].upperTexture, static_cast<int>(obstacleArray[i].topPart.x), static_cast<int>(0 - (obstacleArray[i].upperTexture.height - obstacleArray[i].topPart.height)), WHITE);
+					DrawTexture(obstacleArray[i].bottomTexture, static_cast<int>(obstacleArray[i].topPart.x), static_cast<int>(obstacleArray[i].lowPart.y), WHITE);
 				}
 			}
 		}
 
-		void InitObstacle(Obstacle& obstacle, float posX, Bird& playerOne, Bird& playerTwo)
+		void InitObstacle(Obstacle& obstacle, float posX, Bird& playerOne, Bird& playerTwo, Texture2D upper, Texture2D bottom)
 		{
-			obstacle.middleSpace = { posX,  static_cast<float>(GetRandomValue(200,500)), 90, 150.0f };
-			obstacle.topPart = { posX , 0, 90, obstacle.middleSpace.y };
-			obstacle.lowPart = { posX , obstacle.middleSpace.y + obstacle.middleSpace.height, 90, static_cast<float>(GetScreenHeight()) };
+			obstacle.middleSpace = { posX,  static_cast<float>(GetRandomValue(200,500)), 80, 160.0f };
+			obstacle.topPart = { posX , 0, 80, obstacle.middleSpace.y };
+			obstacle.lowPart = { posX , obstacle.middleSpace.y + obstacle.middleSpace.height, 80, static_cast<float>(GetScreenHeight()) };
 			obstacle.isOnScreen = true;
 			obstacle.timesChecked = 0;
 			obstacle.justGivenPoints = false;
+			obstacle.upperTexture = upper;
+			obstacle.bottomTexture = bottom;
 
 			playerOne.alredyChecked = false;
 			playerTwo.alredyChecked = false;
@@ -71,11 +66,9 @@ namespace flappybird
 
 		void ResetObstacle(Obstacle& obstacle, Bird& playerOne, Bird& playerTwo)
 		{
-			//Tiene que crear un obstaculo. 
-
-			obstacle.middleSpace = { static_cast<float>(GetScreenWidth()),  static_cast<float>(GetRandomValue(200,500)), 90, 150.0f };
-			obstacle.topPart = { static_cast<float>(GetScreenWidth()) , 0, 90, obstacle.middleSpace.y };
-			obstacle.lowPart = { static_cast<float>(GetScreenWidth()) , obstacle.middleSpace.y + obstacle.middleSpace.height, 90, static_cast<float>(GetScreenHeight()) };
+			obstacle.middleSpace = { static_cast<float>(GetScreenWidth()),  static_cast<float>(GetRandomValue(200,500)), 80, 160.0f };
+			obstacle.topPart = { static_cast<float>(GetScreenWidth()) , 0, 80, obstacle.middleSpace.y };
+			obstacle.lowPart = { static_cast<float>(GetScreenWidth()) , obstacle.middleSpace.y + obstacle.middleSpace.height, 80, static_cast<float>(GetScreenHeight()) };
 			obstacle.isOnScreen = true;
 			obstacle.timesChecked = 0;
 			obstacle.justGivenPoints = false;

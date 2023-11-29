@@ -13,6 +13,9 @@ namespace flappybird
 			Rectangle middleSpace = {};
 			Rectangle lowPart = {};
 
+			Texture2D upperTexture;
+			Texture2D bottomTexture;
+
 			Color color = { RED };
 
 			float velocity = { 160 };
@@ -32,7 +35,7 @@ namespace flappybird
 	
 		void ObstacleUpdate(Obstacle obstacleArray[], Bird& playerOne, Bird& playerTwo);
 		void ObstacleDraw(Obstacle obstacleArray[]);
-		void InitObstacle(Obstacle& obstacle, float posX, Bird& playerOne, Bird& playerTwo);
+		void InitObstacle(Obstacle& obstacle, float posX, Bird& playerOne, Bird& playerTwo, Texture2D upper, Texture2D bottom);
 		void ResetObstacle(Obstacle& obstacle, Bird& playerOne, Bird& playerTwo);
 	}
 }
