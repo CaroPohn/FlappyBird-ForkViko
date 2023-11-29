@@ -8,9 +8,10 @@ namespace flappybird
 	{
 		struct Bird
 		{
-			const float SPRITE_SIZE = 70;
+			const float SPRITE_SIZE_W = 180;
+			const float SPRITE_SIZE_H = 100;
 			Texture2D texture = {};
-			Rectangle dest = { 0, 0, SPRITE_SIZE, SPRITE_SIZE };
+			Rectangle dest = { 0, 0, SPRITE_SIZE_W, SPRITE_SIZE_H };
 			Rectangle source = {};
 			Vector2 origin = {};
 
@@ -36,7 +37,7 @@ namespace flappybird
 	
 		void BirdUpdate(Bird& player);
 		void BirdDraw(Bird player);
-		void InitBird(Bird& player, float xPos, KeyboardKey key);
+		void InitBird(Bird& player, float xPos, KeyboardKey key, Texture2D texture);
 	
 	}
 }

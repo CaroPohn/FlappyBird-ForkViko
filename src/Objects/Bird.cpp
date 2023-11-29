@@ -8,8 +8,8 @@ namespace flappybird
 
 		void BirdUpdate(Bird& player)
 		{
-			float texturePos1 = player.texture.width / 4.0f;
-			float texturePos2 = player.texture.width / 4.0f * 2.0f;
+			float texturePos1 = 0;
+			float texturePos2 = player.texture.width / 2.0f;
 
 			const float animationCooldown = 0.3f;
 
@@ -26,7 +26,7 @@ namespace flappybird
 					{
 						if (player.source.x == texturePos1)
 						{
-							player.source = { texturePos2,0,static_cast<float>(player.texture.width / 4),static_cast<float>(player.texture.height) };
+							player.source = { texturePos2, 0, static_cast<float>(player.texture.width / 2), static_cast<float>(player.texture.height) };
 						}
 
 						animationTimer = 0;
@@ -50,7 +50,7 @@ namespace flappybird
 
 					if (animationTimer >= animationCooldown)
 					{
-						player.source = { texturePos1,0,static_cast<float>(player.texture.width / 4),static_cast<float>(player.texture.height) };
+						player.source = { texturePos1, 0, static_cast<float>(player.texture.width / 2), static_cast<float>(player.texture.height) };
 					}
 				}
 			}
@@ -71,8 +71,9 @@ namespace flappybird
 				}
 			}
 
+			float scale = 0.7f;
 			player.hitBox.y += player.velocity.y * GetFrameTime();
-			player.dest = { player.hitBox.x + 20, player.hitBox.y, player.SPRITE_SIZE, player.SPRITE_SIZE};
+			player.dest = { player.hitBox.x + player.hitBox.width / 2, player.hitBox.y + player.hitBox.height / 2, player.SPRITE_SIZE_W * scale, player.SPRITE_SIZE_H * scale };
 		}
 
 		void BirdDraw(Bird player)
@@ -81,23 +82,21 @@ namespace flappybird
 			DrawTexturePro(player.texture,player.source,player.dest,player.origin,player.rotation,player.color);
 		}
 
-		void InitBird(Bird& player, float xPos, KeyboardKey key)
+		void InitBird(Bird& player, float xPos, KeyboardKey key, Texture2D texture)
 		{
 			player.actionKey = key;
 
-			Texture2D playerTexture = LoadTexture("res/game/bird/BirdMovement.png");
+			float scale = 0.7f;
 
-			player.hitBox = { xPos, static_cast<float>(GetScreenHeight()) / 2 , 30, 30 };
+			player.hitBox = { xPos, static_cast<float>(GetScreenHeight()) / 2 , player.SPRITE_SIZE_W * 0.3f, player.SPRITE_SIZE_H * 0.3f };
 			player.velocity = {0,0};
 
-			player.texture = playerTexture;
+			player.texture = texture;
 			player.rotation = 0;
 
-			player.dest = { player.hitBox.x, player.hitBox.y, player.SPRITE_SIZE, player.SPRITE_SIZE };
-			//player.origin = { player.hitBox.width, player.hitBox.height};
-			player.origin = { player.hitBox.width, player.hitBox.height};
-			//player.source = { player.texture.width / 4.0f, 0, static_cast<float>(player.texture.width) / 4, static_cast<float>(player.texture.height)};
-			player.source = { 0, 0, static_cast<float>(player.texture.width) / 4, static_cast<float>(player.texture.height)};
+			player.origin = { (player.SPRITE_SIZE_W * scale) / 2, (player.SPRITE_SIZE_H * scale) / 2 };
+			player.dest = { player.hitBox.x + player.origin.x, player.hitBox.y + player.origin.y, player.SPRITE_SIZE_W * scale, player.SPRITE_SIZE_H * scale };
+			player.source = { 0, 0, static_cast<float>(player.texture.width) / 2, static_cast<float>(player.texture.height)};
 		}
 	}
 }

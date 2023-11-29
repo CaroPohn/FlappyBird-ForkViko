@@ -22,7 +22,7 @@ namespace flappybird
 			PlayAgain.scale = 0.6f;
 			PlayAgain.texture = LoadTexture("res/menu/OnePlayer.png");
 		}
-
+		 
 		void PauseUpdate(Screen& currentScene, bool& isPaused)
 		{
 			if (MouseColision(BackMenuButton))
