@@ -25,6 +25,9 @@ namespace flappybird
 		static Texture2D creditsT1;
 		static Texture2D creditsT2;
 
+		static Texture2D rulesT1;
+		static Texture2D rulesT2;
+
 		static Texture2D menu1;
 		static Texture2D menu2;
 
@@ -42,24 +45,27 @@ namespace flappybird
 			creditsT1 = LoadTexture("res/menu/credits1.png");
 			creditsT2 = LoadTexture("res/menu/credits2.png");
 
+			rulesT1 = LoadTexture("res/menu/rules1.png");
+			rulesT2 = LoadTexture("res/menu/rules2.png");
+
 			onePlayer.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 350};
 			onePlayer.scale = 0.6f;
 			onePlayer.texture = onePlayerT1;
 
-			twoPlayers.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 430 };
+			twoPlayers.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 420 };
 			twoPlayers.scale = 0.6f;
 			twoPlayers.texture = twoPlayersT1;
 
-			credits.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 510};
+			credits.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 490};
 			credits.scale = 0.6f;
 			credits.texture = creditsT1;
 
-			rules.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 590 };
-			rules.scale = 0.5f;
-			rules.texture = LoadTexture("res/menu/Rules.png");
+			rules.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 560 };
+			rules.scale = 0.6f;
+			rules.texture = rulesT1;
 
-			exit.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 670 };
-			exit.scale = 0.5f;
+			exit.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 660 };
+			exit.scale = 0.6f;
 			exit.texture = LoadTexture("res/menu/ExitButton.png");
 
 		}
@@ -127,7 +133,7 @@ namespace flappybird
 
 			if (MouseColision(rules))
 			{
-				rules.color = GRAY;
+				rules.texture = rulesT2;
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -137,7 +143,7 @@ namespace flappybird
 			}
 			else
 			{
-				rules.color = WHITE;
+				rules.texture = rulesT1;
 			}
 		}
 		
