@@ -17,8 +17,14 @@ namespace flappybird
 		static Sprite credits;
 		static Sprite exit;
 
+		static Texture2D menu1;
+		static Texture2D menu2;
+
 		void InitMenu()
 		{
+			menu1 = LoadTexture("res/menu/menu1.png");
+			menu2 = LoadTexture("res/menu/menu2.png");
+
 			title.position = { static_cast<float>(GetScreenWidth()) / 2 - 240, 60 };
 			title.scale = 0.7f;
 			title.texture = LoadTexture("res/menu/Title.png");
@@ -125,7 +131,17 @@ namespace flappybird
 
 		void MenuDrawing()
 		{
-			DrawSprite(title);
+			int frame = 0;
+
+			frame += static_cast<int>(GetTime());
+
+			if (frame % 2 == 0)
+			{
+				DrawTexture(menu1, 0, 0, WHITE);
+			}
+			else 
+				DrawTexture(menu2, 0, 0, WHITE);
+			
 			DrawSprite(onePlayer);
 			DrawSprite(twoPlayers);
 			DrawSprite(credits);
