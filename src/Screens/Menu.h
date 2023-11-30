@@ -8,6 +8,6 @@ namespace flappybird
 		void InitMenu();
 		void MenuUpdate(Screen& currentScene, int& pointsCounter, bool& isGameOver, bool& isPaused);
 		void MenuDrawing();
-	
+		void UnloadTexturesMenu();
 	}
 }

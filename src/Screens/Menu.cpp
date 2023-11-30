@@ -184,5 +184,21 @@ namespace flappybird
 
 			DrawText("1.0", 2, 2, 50, RED);
 		}
+
+		void UnloadTexturesMenu()
+		{
+			UnloadTexture(onePlayerT1);
+			UnloadTexture(onePlayerT2);
+			UnloadTexture(twoPlayersT1);
+			UnloadTexture(twoPlayersT2);
+			UnloadTexture(creditsT1);
+			UnloadTexture(creditsT2);
+			UnloadTexture(rulesT1);
+			UnloadTexture(rulesT2);
+			UnloadTexture(exitT1);
+			UnloadTexture(exitT2);
+			UnloadTexture(menu1);
+			UnloadTexture(menu2);
+		}
 	}
 }
