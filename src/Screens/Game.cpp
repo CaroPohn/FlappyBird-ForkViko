@@ -26,7 +26,11 @@ namespace flappybird
 		Texture2D bottom1;
 		Texture2D bottom2;
 
+		Texture2D pauseTexture;
+
 		Obstacle obstacleArray[MAX_OBSTACLES];
+
+		Sprite PauseButton;
 
 		Sprite BackgroundLayer1;
 		Sprite BackgroundLayer2;
@@ -47,11 +51,15 @@ namespace flappybird
 			players = playerCount;
 			pointsCounter = 0;
 
+			int pauseButOffset = 10;
+
 			isGameOver = false;
 			isPaused = false;
 
 			float firstPipeX = static_cast<float>(GetScreenWidth());
 			float secondPipeX = firstPipeX + firstPipeX / 2;
+
+			pauseTexture = LoadTexture("res/game/pause/pauseButton.png");
 
 			player1Texture = LoadTexture("res/game/bird/player1.png");
 			player2Texture = LoadTexture("res/game/bird/player2.png");
@@ -61,6 +69,10 @@ namespace flappybird
 
 			bottom1 = LoadTexture("res/game/obstacle/downObstacle.png");
 			bottom2 = LoadTexture("res/game/obstacle/downObstacleDark.png");
+
+			PauseButton.texture = pauseTexture;
+			PauseButton.scale = 0.5f;
+			PauseButton.position = { static_cast<float>(pauseButOffset) , static_cast<float>(GetScreenHeight() - PauseButton.texture.height * PauseButton.scale - pauseButOffset)};
 
 			if (players == PlayerCount::TwoPlayers)
 			{
@@ -136,10 +148,19 @@ namespace flappybird
 			ObstacleUpdate(obstacleArray, player, playerTwo);
 			CheckCollitions(player, pointsCounter, isGameOver, isPaused);
 			UpdateParallax();
-			
-			if (IsKeyDown(KEY_ESCAPE))
+
+			if (MouseColision(PauseButton))
 			{
-				isPaused = true;
+				PauseButton.color = GRAY;
+
+				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+				{
+					isPaused = true;
+				}
+			}
+			else
+			{
+				PauseButton.color = WHITE;
 			}
 		}
 
@@ -178,6 +199,7 @@ namespace flappybird
 			}
 
 			DrawText(std::to_string(pointsCounter).c_str(), 10, 10, 60, RED);
+			DrawSprite(PauseButton);
 		}
 
 		void DrawParallax()
