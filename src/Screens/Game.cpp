@@ -216,7 +216,7 @@ namespace flappybird
 
 		void CheckCollitions(Bird toCheck, int& pointsCounter, bool& isGameOver, bool& isPaused)
 		{
-			if (toCheck.hitBox.y + toCheck.hitBox.height > GetScreenHeight() - toCheck.hitBox.height)
+			if (toCheck.hitBox.y > GetScreenHeight())
 			{
 				isGameOver = true;
 				isPaused = true;
