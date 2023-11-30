@@ -78,7 +78,6 @@ namespace flappybird
 
 		void BirdDraw(Bird player)
 		{
-			DrawRectangleRec(player.hitBox, RED);
 			DrawTexturePro(player.texture,player.source,player.dest,player.origin,player.rotation,player.color);
 		}
 
