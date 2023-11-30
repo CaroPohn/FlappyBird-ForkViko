@@ -6,20 +6,25 @@ namespace flappybird
 {
 	namespace credits
 	{
-		Sprite ShowCredits;
-		Sprite BackGround;
+		Texture2D creditsBack;
+
+		Texture2D backMenuCred1;
+		Texture2D backMenuCred2;
+
 		Sprite ReturnMenuButton;
 
+		int buttonCredOffset = 10;
 
 		void InitCredits()
 		{
-			ShowCredits.position = { 140,100 };
-			ShowCredits.scale = 1;
-			ShowCredits.texture = LoadTexture("res/credits/ShowCredits.png");
+			backMenuCred1 = LoadTexture("res/credits/backmenu1.png");
+			backMenuCred2 = LoadTexture("res/credits/backmenu2.png");
 
-			ReturnMenuButton.position = { 400,550 };
 			ReturnMenuButton.scale = 0.6f;
-			ReturnMenuButton.texture = LoadTexture("res/credits/ReturnMenuButton.png");
+			ReturnMenuButton.texture = backMenuCred1;
+			ReturnMenuButton.position = {static_cast<float>(GetScreenWidth() - ReturnMenuButton.texture.width * ReturnMenuButton.scale - buttonCredOffset) , static_cast<float>(GetScreenHeight() - ReturnMenuButton.texture.height * ReturnMenuButton.scale - buttonCredOffset)};
+
+			creditsBack = LoadTexture("res/credits/creditsScreen.png");
 		}
 
 		void CreditsUpdate(Screen& currentScene)
@@ -27,7 +32,7 @@ namespace flappybird
 
 			if (MouseColision(ReturnMenuButton))
 			{
-				ReturnMenuButton.color = GRAY;
+				ReturnMenuButton.texture = backMenuCred2;
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -36,14 +41,14 @@ namespace flappybird
 			}
 			else
 			{
-				ReturnMenuButton.color = WHITE;
+				ReturnMenuButton.texture = backMenuCred1;
 			}
 
 		}
 
 		void CreditsDrawing()
 		{
-			DrawSprite(ShowCredits);
+			DrawTexture(creditsBack, 0, 0, WHITE);
 			DrawSprite(ReturnMenuButton);
 		}
 	}
