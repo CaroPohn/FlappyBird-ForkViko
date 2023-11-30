@@ -28,6 +28,9 @@ namespace flappybird
 		static Texture2D rulesT1;
 		static Texture2D rulesT2;
 
+		static Texture2D exitT1;
+		static Texture2D exitT2;
+
 		static Texture2D menu1;
 		static Texture2D menu2;
 
@@ -48,6 +51,9 @@ namespace flappybird
 			rulesT1 = LoadTexture("res/menu/rules1.png");
 			rulesT2 = LoadTexture("res/menu/rules2.png");
 
+			exitT1 = LoadTexture("res/menu/exit1.png");
+			exitT2 = LoadTexture("res/menu/exit2.png");
+
 			onePlayer.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 350};
 			onePlayer.scale = 0.6f;
 			onePlayer.texture = onePlayerT1;
@@ -64,9 +70,9 @@ namespace flappybird
 			rules.scale = 0.6f;
 			rules.texture = rulesT1;
 
-			exit.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 660 };
+			exit.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 630 };
 			exit.scale = 0.6f;
-			exit.texture = LoadTexture("res/menu/ExitButton.png");
+			exit.texture = exitT1;
 
 		}
 
@@ -104,7 +110,7 @@ namespace flappybird
 
 			if (MouseColision(exit))
 			{
-				exit.color = GRAY;
+				exit.texture = exitT2;
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -113,7 +119,7 @@ namespace flappybird
 			}
 			else
 			{
-				exit.color = WHITE;
+				exit.texture = exitT1;
 			}
 
 			if (MouseColision(credits))
