@@ -6,6 +6,8 @@ namespace flappybird
 	{
 		float animationTimer = 0;
 
+		Sound jump;
+
 		void BirdUpdate(Bird& player)
 		{
 			float texturePos1 = 0;
@@ -19,6 +21,7 @@ namespace flappybird
 			{
 				if (IsKeyPressed(player.actionKey))
 				{
+					PlaySound(jump);
 					player.velocity.y = (player.aceleration);
 					player.rotation = player.TOP_ROTATION;
 
@@ -83,6 +86,8 @@ namespace flappybird
 
 		void InitBird(Bird& player, float xPos, KeyboardKey key, Texture2D texture)
 		{
+			jump = LoadSound("res/sounds/jump.mp3");
+
 			player.actionKey = key;
 
 			float scale = 0.7f;

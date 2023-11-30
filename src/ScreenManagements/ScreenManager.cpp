@@ -27,6 +27,7 @@ namespace flappybird
 	void RunProgram()
 	{
 		InitProgram();
+		InitAudioDevice();
 
 		while (!WindowShouldClose() && currentScreen != Screen::Exit)
 		{
@@ -34,6 +35,7 @@ namespace flappybird
 			Draw();
 		}
 
+		CloseAudioDevice();
 		Close();
 	}
 
@@ -42,7 +44,7 @@ namespace flappybird
 		int windowH = 720;
 		int windowW = 1080;
 
-		InitWindow(windowW, windowH, "Flappy Viko by Mateo Viko Monastra");
+		InitWindow(windowW, windowH, "Merry Christcats");
 
 		menu::InitMenu();
 		pause::InitPause();
