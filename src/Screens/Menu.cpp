@@ -34,8 +34,12 @@ namespace flappybird
 		static Texture2D menu1;
 		static Texture2D menu2;
 
+		Sound menuButton;
+
 		void InitMenu()
 		{
+			menuButton = LoadSound("res/sounds/button.mp3");
+
 			menu1 = LoadTexture("res/menu/menu1.png");
 			menu2 = LoadTexture("res/menu/menu2.png");
 
@@ -54,7 +58,7 @@ namespace flappybird
 			exitT1 = LoadTexture("res/menu/exit1.png");
 			exitT2 = LoadTexture("res/menu/exit2.png");
 
-			onePlayer.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 350};
+			onePlayer.position = { static_cast<float>(GetScreenWidth()) / 2 - 80 , 350 };
 			onePlayer.scale = 0.6f;
 			onePlayer.texture = onePlayerT1;
 
@@ -62,7 +66,7 @@ namespace flappybird
 			twoPlayers.scale = 0.6f;
 			twoPlayers.texture = twoPlayersT1;
 
-			credits.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 490};
+			credits.position = { static_cast<float>(GetScreenWidth()) / 2 - 80, 490 };
 			credits.scale = 0.6f;
 			credits.texture = creditsT1;
 
@@ -81,7 +85,8 @@ namespace flappybird
 			if (MouseColision(onePlayer))
 			{
 				onePlayer.texture = onePlayerT2;
-				
+				PlaySound(menuButton);
+
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
 					currentScene = Screen::Game;
@@ -96,6 +101,7 @@ namespace flappybird
 			if (MouseColision(twoPlayers))
 			{
 				twoPlayers.texture = twoPlayersT2;
+				PlaySound(menuButton);
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -111,6 +117,7 @@ namespace flappybird
 			if (MouseColision(exit))
 			{
 				exit.texture = exitT2;
+				PlaySound(menuButton);
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -125,6 +132,7 @@ namespace flappybird
 			if (MouseColision(credits))
 			{
 				credits.texture = creditsT2;
+				PlaySound(menuButton);
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -140,6 +148,7 @@ namespace flappybird
 			if (MouseColision(rules))
 			{
 				rules.texture = rulesT2;
+				PlaySound(menuButton);
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -152,7 +161,7 @@ namespace flappybird
 				rules.texture = rulesT1;
 			}
 		}
-		
+
 
 		void MenuDrawing()
 		{
@@ -164,14 +173,16 @@ namespace flappybird
 			{
 				DrawTexture(menu1, 0, 0, WHITE);
 			}
-			else 
+			else
 				DrawTexture(menu2, 0, 0, WHITE);
-			
+
 			DrawSprite(onePlayer);
 			DrawSprite(twoPlayers);
 			DrawSprite(credits);
 			DrawSprite(rules);
 			DrawSprite(exit);
+
+			DrawText("1.0", 2, 2, 50, RED);
 		}
 	}
 }

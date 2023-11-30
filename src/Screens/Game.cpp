@@ -45,9 +45,15 @@ namespace flappybird
 		Sprite BackgroundLayer5_2;
 
 		PlayerCount players;
+
+		Sound playerHurt;
+		Sound buttonGame;
 		
 		void InitGame(PlayerCount playerCount, int& pointsCounter, bool& isGameOver, bool& isPaused)
 		{
+			playerHurt = LoadSound("res/sounds/playerhurt.mp3");
+			buttonGame = LoadSound("res/sounds/button.mp3");
+
 			players = playerCount;
 			pointsCounter = 0;
 
@@ -155,6 +161,7 @@ namespace flappybird
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
+					PlaySound(buttonGame);
 					isPaused = true;
 				}
 			}
@@ -218,6 +225,7 @@ namespace flappybird
 		{
 			if (toCheck.hitBox.y > GetScreenHeight())
 			{
+				PlaySound(playerHurt);
 				isGameOver = true;
 				isPaused = true;
 				return;
@@ -229,6 +237,7 @@ namespace flappybird
 				{
 					if (CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].lowPart) || CheckCollisionRecs(toCheck.hitBox, obstacleArray[i].topPart))
 					{
+						PlaySound(playerHurt);
 						isGameOver = true;
 						isPaused = true;
 						return;

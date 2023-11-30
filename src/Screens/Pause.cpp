@@ -22,11 +22,15 @@ namespace flappybird
 		static Sprite BackMenuButton;
 		static Sprite PlayAgain;
 
+		Sound buttonPause;
+
 		void InitPause()
 		{
 			float buttonYPos = 620.0f;
 			float buttonPlayOffset = 30.0f;
 			float buttonBackMOffset = 15.0f;
+
+			buttonPause = LoadSound("res/sounds/button.mp3");
 
 			points = LoadTexture("res/game/pause/points.png");
 
@@ -41,23 +45,20 @@ namespace flappybird
 
 			BackMenuButton.texture = backMenuPause1;
 			BackMenuButton.scale = 0.6f;
-			BackMenuButton.position = { GetScreenWidth() / 2 + buttonBackMOffset , buttonYPos};
+			BackMenuButton.position = { GetScreenWidth() / 2 + buttonBackMOffset , buttonYPos };
 
 			PlayAgain.texture = play1;
 			PlayAgain.scale = 0.6f;
-			PlayAgain.position = { GetScreenWidth() / 2 - BackMenuButton.texture.width * BackMenuButton.scale - buttonPlayOffset , buttonYPos};
+			PlayAgain.position = { GetScreenWidth() / 2 - BackMenuButton.texture.width * BackMenuButton.scale - buttonPlayOffset , buttonYPos };
 		}
-		 
+
 		void PauseUpdate(Screen& currentScene, bool& isPaused)
 		{
-			if (IsKeyPressed(KEY_ESCAPE))
-			{
-				isPaused = false;
-			}
-			
+
 			if (MouseColision(BackMenuButton))
 			{
 				BackMenuButton.texture = backMenuPause2;
+				PlaySound(buttonPause);
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -72,6 +73,7 @@ namespace flappybird
 			if (MouseColision(PlayAgain))
 			{
 				PlayAgain.texture = play2;
+				PlaySound(buttonPause);
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -90,7 +92,7 @@ namespace flappybird
 			{
 				int pointsOffset = 155;
 				float pointsScale = 0.7f;
-				
+
 				DrawTexture(gameOverBack, 0, 0, WHITE);
 				DrawText(std::to_string(pointsCounter).c_str(), GetScreenWidth() - pointsOffset, 26, 70, WHITE);
 				DrawTextureEx(points, { static_cast<float>(GetScreenWidth() - points.width * pointsScale - pointsOffset), 20 }, 0, pointsScale, WHITE);
