@@ -177,8 +177,7 @@ namespace flappybird
 				BirdDraw(playerTwo);
 			}
 
-			DrawText("Press Esc to return Menu", GetScreenWidth() - 300, 20, 20, BLACK);
-			DrawText(std::to_string(pointsCounter).c_str(), 10, 10, 70, BLACK);
+			DrawText(std::to_string(pointsCounter).c_str(), 10, 10, 60, RED);
 		}
 
 		void DrawParallax()

@@ -9,25 +9,55 @@ namespace flappybird
 {
 	namespace pause
 	{
+		Texture2D pauseBack;
+		Texture2D gameOverBack;
+		Texture2D points;
+
+		Texture2D backMenuPause1;
+		Texture2D backMenuPause2;
+
+		Texture2D play1;
+		Texture2D play2;
+
 		static Sprite BackMenuButton;
 		static Sprite PlayAgain;
 
 		void InitPause()
 		{
-			BackMenuButton.position = { 400,550 };
-			BackMenuButton.scale = 0.6f;
-			BackMenuButton.texture = LoadTexture("res/credits/ReturnMenuButton.png");
+			float buttonYPos = 620.0f;
+			float buttonPlayOffset = 30.0f;
+			float buttonBackMOffset = 15.0f;
 
-			PlayAgain.position = { 200,650 };
+			points = LoadTexture("res/game/pause/points.png");
+
+			pauseBack = LoadTexture("res/game/pause/pauseBack.png");
+			gameOverBack = LoadTexture("res/game/pause/gameOverBack.png");
+
+			backMenuPause1 = LoadTexture("res/game/pause/backmenu1.png");
+			backMenuPause2 = LoadTexture("res/game/pause/backmenu2.png");
+
+			play1 = LoadTexture("res/game/pause/play1.png");
+			play2 = LoadTexture("res/game/pause/play2.png");
+
+			BackMenuButton.texture = backMenuPause1;
+			BackMenuButton.scale = 0.6f;
+			BackMenuButton.position = { GetScreenWidth() / 2 + buttonBackMOffset , buttonYPos};
+
+			PlayAgain.texture = play1;
 			PlayAgain.scale = 0.6f;
-			PlayAgain.texture = LoadTexture("res/menu/OnePlayer.png");
+			PlayAgain.position = { GetScreenWidth() / 2 - BackMenuButton.texture.width * BackMenuButton.scale - buttonPlayOffset , buttonYPos};
 		}
 		 
 		void PauseUpdate(Screen& currentScene, bool& isPaused)
 		{
+			if (IsKeyPressed(KEY_ESCAPE))
+			{
+				isPaused = false;
+			}
+			
 			if (MouseColision(BackMenuButton))
 			{
-				BackMenuButton.color = GRAY;
+				BackMenuButton.texture = backMenuPause2;
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -36,12 +66,12 @@ namespace flappybird
 			}
 			else
 			{
-				BackMenuButton.color = WHITE;
+				BackMenuButton.texture = backMenuPause1;
 			}
 
 			if (MouseColision(PlayAgain))
 			{
-				PlayAgain.color = GRAY;
+				PlayAgain.texture = play2;
 
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
@@ -50,7 +80,7 @@ namespace flappybird
 			}
 			else
 			{
-				PlayAgain.color = WHITE;
+				PlayAgain.texture = play1;
 			}
 		}
 
@@ -58,13 +88,18 @@ namespace flappybird
 		{
 			if (isGameOver)
 			{
-				DrawText(std::to_string(pointsCounter).c_str(), GetScreenWidth() / 2, GetScreenHeight() / 2, 70, WHITE);
+				int pointsOffset = 155;
+				float pointsScale = 0.7f;
+				
+				DrawTexture(gameOverBack, 0, 0, WHITE);
+				DrawText(std::to_string(pointsCounter).c_str(), GetScreenWidth() - pointsOffset, 26, 70, WHITE);
+				DrawTextureEx(points, { static_cast<float>(GetScreenWidth() - points.width * pointsScale - pointsOffset), 20 }, 0, pointsScale, WHITE);
 				DrawSprite(BackMenuButton);
 				DrawSprite(PlayAgain);
 			}
 			else
 			{
-				DrawText("PAUSED", GetScreenWidth() / 2, GetScreenHeight() / 2, 70, WHITE);
+				DrawTexture(pauseBack, 0, 0, WHITE);
 				DrawSprite(BackMenuButton);
 				DrawSprite(PlayAgain);
 			}
